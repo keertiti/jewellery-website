@@ -1,3 +1,4 @@
+
 /* ==========================================
    GEHNE BY JIPPY
    MAIN WEBSITE INTERACTIONS AND GALLERIES
@@ -120,7 +121,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 ------------------------------------------ */
 
 const filterButtons = document.querySelectorAll(".filter");
-
 const productCards = document.querySelectorAll(".product-card");
 
 filterButtons.forEach(button => {
@@ -130,9 +130,7 @@ filterButtons.forEach(button => {
         // Update active filter.
 
         filterButtons.forEach(item => {
-
             item.classList.remove("active");
-
         });
 
         button.classList.add("active");
@@ -193,10 +191,6 @@ if (yearElement) {
 
 /* ==========================================
    COLLECTION CATEGORY DATA
-
-   Add or remove filenames inside each array.
-
-   Keep filenames exactly the same as your files.
 ========================================== */
 
 const categoryData = {
@@ -404,8 +398,7 @@ const categoryData = {
             "earring-06.mp4",
             "earring-07.mp4",
             "earring-08.mp4",
-            "earring-09.mp4",
-            "earring-10.mp4"
+            "earring-09.mp4"
 
         ].map(filename => ({
 
@@ -425,10 +418,61 @@ const categoryData = {
 ========================================== */
 
 const categoryModal = document.getElementById("categoryModal");
-
 const categoryTitle = document.getElementById("categoryTitle");
-
 const categoryGallery = document.getElementById("categoryGallery");
+
+
+/* ------------------------------------------
+   GALLERY VIDEO AUTOPLAY OBSERVER
+   Play videos when visible.
+   Pause videos when scrolled away.
+------------------------------------------ */
+
+let galleryVideoObserver = null;
+
+function setupGalleryVideoAutoplay() {
+
+    if (!categoryGallery) return;
+
+    // Remove any previous observer.
+
+    if (galleryVideoObserver) {
+        galleryVideoObserver.disconnect();
+    }
+
+    // Autoplay only videos visible in the gallery.
+
+    galleryVideoObserver = new IntersectionObserver(entries => {
+
+        entries.forEach(entry => {
+
+            const video = entry.target;
+
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+
+                video.play().catch(() => {});
+
+            } else {
+
+                video.pause();
+
+            }
+
+        });
+
+    }, {
+
+        threshold: [0, 0.5, 1]
+
+    });
+
+    categoryGallery.querySelectorAll("video").forEach(video => {
+
+        galleryVideoObserver.observe(video);
+
+    });
+
+}
 
 
 /* ------------------------------------------
@@ -493,6 +537,8 @@ function openCategory(category) {
 
             video.controls = true;
 
+            video.muted = true;
+
             video.playsInline = true;
 
             video.preload = "metadata";
@@ -537,6 +583,11 @@ function openCategory(category) {
         categoryGallery.appendChild(mediaBox);
 
     });
+
+
+    // Start autoplay for visible videos.
+
+    setupGalleryVideoAutoplay();
 
 
     // Empty gallery message.
@@ -588,6 +639,16 @@ function closeCategory() {
         return;
     }
 
+    // Disconnect autoplay observer.
+
+    if (galleryVideoObserver) {
+
+        galleryVideoObserver.disconnect();
+
+        galleryVideoObserver = null;
+
+    }
+
     categoryModal.classList.remove("is-open");
 
     categoryModal.setAttribute("aria-hidden", "true");
@@ -595,7 +656,7 @@ function closeCategory() {
     document.body.classList.remove("modal-open");
 
 
-    // Pause videos when popup closes.
+    // Pause and reset videos when popup closes.
 
     categoryGallery.querySelectorAll("video").forEach(video => {
 
@@ -651,14 +712,13 @@ document.addEventListener("keydown", event => {
     }
 
 });
-/* ===================FILE: script.js========================= */
+
 
 /* ==========================================
    HOME FULL SCREEN VIDEO SLIDER
    - swipe / drag to change video
    - next video starts when one ends
    - arrows, progress bars, keyboard arrows
-   
 ========================================== */
 
 (function () {
@@ -682,7 +742,8 @@ document.addEventListener("keydown", event => {
     let inView = true;
     let failed = 0;
 
-    // swipe / drag state
+    // Swipe / drag state.
+
     let dragging = false;
     let startX = 0;
     let deltaX = 0;
@@ -699,10 +760,13 @@ document.addEventListener("keydown", event => {
         if (attempt && attempt.catch) {
             attempt.catch(() => {});
         }
+
     }
 
     function pauseAll() {
+
         videos.forEach(video => video.pause());
+
     }
 
 
@@ -713,12 +777,17 @@ document.addEventListener("keydown", event => {
         bars.forEach((bar, i) => {
 
             if (i < index) {
+
                 bar.style.setProperty("--p", 1);
+
             } else if (i > index) {
+
                 bar.style.setProperty("--p", 0);
+
             }
 
         });
+
     }
 
     function updateProgress() {
@@ -731,6 +800,7 @@ document.addEventListener("keydown", event => {
             "--p",
             Math.min(video.currentTime / video.duration, 1)
         );
+
     }
 
 
@@ -745,8 +815,11 @@ document.addEventListener("keydown", event => {
         videos.forEach((video, k) => {
 
             if (k !== index) {
+
                 video.pause();
+
                 video.currentTime = 0;
+
             }
 
         });
@@ -754,16 +827,24 @@ document.addEventListener("keydown", event => {
         videos[index].currentTime = 0;
 
         bars.forEach((bar, k) => {
-            bar.setAttribute("aria-current", k === index ? "true" : "false");
+
+            bar.setAttribute(
+                "aria-current",
+                k === index ? "true" : "false"
+            );
+
         });
 
         updateBars();
 
         if (bars[index]) {
+
             bars[index].style.setProperty("--p", 0);
+
         }
 
         playCurrent();
+
     }
 
 
@@ -772,11 +853,15 @@ document.addEventListener("keydown", event => {
     videos.forEach((video, i) => {
 
         // When a video ends, move to the next one.
+
         video.addEventListener("ended", () => {
 
             if (i === index) {
+
                 failed = 0;
+
                 goTo(index + 1);
+
             }
 
         });
@@ -784,18 +869,23 @@ document.addEventListener("keydown", event => {
         video.addEventListener("timeupdate", () => {
 
             if (i === index) {
+
                 updateProgress();
+
             }
 
         });
 
         // If a video file is missing, skip to the next one.
+
         video.addEventListener("error", () => {
 
             failed += 1;
 
             if (i === index && failed < total) {
+
                 goTo(index + 1);
+
             }
 
         });
@@ -805,16 +895,28 @@ document.addEventListener("keydown", event => {
 
     /* ---------- BUTTONS ---------- */
 
-    if (prevBtn) prevBtn.addEventListener("click", () => goTo(index - 1));
-    if (nextBtn) nextBtn.addEventListener("click", () => goTo(index + 1));
+    if (prevBtn) {
+
+        prevBtn.addEventListener("click", () => goTo(index - 1));
+
+    }
+
+    if (nextBtn) {
+
+        nextBtn.addEventListener("click", () => goTo(index + 1));
+
+    }
 
     bars.forEach((bar, i) => {
+
         bar.addEventListener("click", () => goTo(i));
+
     });
 
     slider.addEventListener("keydown", event => {
 
         if (event.key === "ArrowLeft") goTo(index - 1);
+
         if (event.key === "ArrowRight") goTo(index + 1);
 
     });
@@ -824,11 +926,14 @@ document.addEventListener("keydown", event => {
 
     slider.addEventListener("pointerdown", event => {
 
-        // Don't start a swipe on buttons or links (so they still click).
+        // Don't start a swipe on buttons or links.
+
         if (event.target.closest("button, a")) return;
 
         dragging = true;
+
         startX = event.clientX;
+
         deltaX = 0;
 
         track.style.transition = "none";
@@ -862,15 +967,18 @@ document.addEventListener("keydown", event => {
 
         } else {
 
-            // Not swiped far enough: slide back, keep playing.
+            // Not swiped far enough: slide back.
+
             track.style.transform = `translateX(${-index * 100}%)`;
 
         }
 
         deltaX = 0;
+
     }
 
     slider.addEventListener("pointerup", endDrag);
+
     slider.addEventListener("pointercancel", endDrag);
 
 
@@ -883,9 +991,13 @@ document.addEventListener("keydown", event => {
             inView = entries[0].isIntersecting;
 
             if (inView) {
+
                 playCurrent();
+
             } else {
+
                 pauseAll();
+
             }
 
         }, { threshold: 0.25 }).observe(slider);
@@ -895,38 +1007,16 @@ document.addEventListener("keydown", event => {
     document.addEventListener("visibilitychange", () => {
 
         if (document.hidden) {
+
             pauseAll();
+
         } else {
+
             playCurrent();
+
         }
 
     });
-
-
-    /* ---------- FULL SCREEN BUTTON ---------- */
-
-    // if (fsBtn) {
-
-    //     if (!slider.requestFullscreen) {
-
-    //         // e.g. iPhone: browser can't full-screen a page element.
-    //         fsBtn.hidden = true;
-
-    //     } else {
-
-    //         fsBtn.addEventListener("click", () => {
-
-    //             if (document.fullscreenElement) {
-    //                 document.exitFullscreen();
-    //             } else {
-    //                 slider.requestFullscreen().catch(() => {});
-    //             }
-
-    //         });
-
-    //     }
-
-    // }
 
 
     /* ---------- START ---------- */
@@ -934,10 +1024,20 @@ document.addEventListener("keydown", event => {
     goTo(0);
 
 })();
+
+
+/* ------------------------------------------
+   RETURN TO HOME WHEN PAGE IS REFRESHED
+------------------------------------------ */
+
 window.addEventListener("load", function () {
+
     if (window.location.hash) {
+
         window.location.replace(
             window.location.pathname + window.location.search
         );
+
     }
+
 });

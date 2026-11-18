@@ -979,28 +979,9 @@ section[id] {
     font-size: 11px;
 }
 
-.round-arrow {
-    flex-shrink: 0;
-    width: 38px;
-    height: 38px;
-    display: grid;
-    place-items: center;
-    border: 1px solid var(--gold);
-    border-radius: 50%;
-    color: var(--gold);
-    font-size: 17px;
-    transition: all 0.3s ease;
-}
 
-.round-arrow:hover {
-    background: var(--gold);
-    color: #fff;
-}
-.round-arrow i {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1;
-}
+
+
 .gallery-hint {
     margin: 28px 0 0;
     color: var(--muted);
@@ -1043,15 +1024,23 @@ section[id] {
 }
 
 .category-close {
-    position: absolute;
+    position: sticky;
     top: 15px;
-    right: 20px;
+    margin-left: auto;
+    margin-right: 20px;
+
     width: 40px;
     height: 40px;
+
     border: 1px solid var(--line);
     background: transparent;
     color: var(--ink);
     font-size: 28px;
+
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .category-modal-heading {
@@ -1086,7 +1075,7 @@ section[id] {
 .category-gallery-item {
     position: relative;
     min-width: 0;
-    background: #eee7dc;
+    background: transparent;
 }
 
 .gallery-item img,
@@ -2581,10 +2570,7 @@ section[id] {
         font-size: 10px;
     }
 
-    .round-arrow {
-        width: 33px;
-        height: 33px;
-    }
+  
 
     /* Modal */
     .category-modal {
@@ -3033,5 +3019,93 @@ section[id] {
 .section-heading h2,
 .customisation-heading h2 {
     font-family: "Bodoni Moda", serif;
+}
+/* =========================================
+   DIAMOND SIGNATURE — LUXURY EDITORIAL
+========================================= */
+
+.diamond-signature {
+    width: 100%;
+    max-width: 500px;
+    margin: 45px auto !important; /* equal top and bottom */
+    text-align: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.diamond-signature-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    width: 100%;
+}
+
+.diamond-line {
+    display: block;
+    flex: 1;
+    min-width: 10px;
+    height: 1px;
+    background: rgba(183, 151, 98, 0.55);
+}
+
+.diamond-signature-image {
+    width: 150px;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.diamond-signature-text {
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 10px;
+}
+
+.diamond-signature-note {
+    font-size: 12px;
+    line-height: 1.8;
+    letter-spacing: 0.3px;
+    color: var(--ink);
+    opacity: 0.65;
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 600px) {
+
+    .diamond-signature {
+        margin: 32px auto !important; /* equal top and bottom */
+        padding: 0 15px;
+    }
+
+    .diamond-signature-line {
+        gap: 16px;
+    }
+
+    .diamond-signature-image {
+    width: 100px;
+    height: 90px;
+    border-radius: 14px;
+}
+
+    .diamond-signature-text {
+        font-size: 11px;
+        letter-spacing: 1.4px;
+    }
+
+    .diamond-signature-note {
+        font-size: 11px;
+        line-height: 1.7;
+    }
+
 }
 /* ================= END OF CSS ================= */
