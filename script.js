@@ -934,3 +934,10 @@ document.addEventListener("keydown", event => {
     goTo(0);
 
 })();
+window.addEventListener("load", function () {
+    if (window.location.hash) {
+        window.location.replace(
+            window.location.pathname + window.location.search
+        );
+    }
+});
