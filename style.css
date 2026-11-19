@@ -5,6 +5,7 @@
 ========================================================= */
 
 /* ================= ROOT ================= */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
 :root {
     --ink: #211d17;
@@ -16,9 +17,8 @@
     --line: #ded8cc;
     --whatsapp: #25D366;
     --whatsapp-hover: #1DA851;
-
-    --serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+--serif: "Cormorant Garamond", serif;
+--sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
     --section-padding: 100px 8%;
     --header-height: 76px;
@@ -136,7 +136,7 @@ section[id] {
     font: 17px var(--serif);
     letter-spacing: 2.3px;
     line-height: 1.1;
-    font-family: "Bodoni Moda", serif;
+    font-family: "Cormorant Garamond", serif;
 }
 
 .brand-name small {
@@ -145,7 +145,7 @@ section[id] {
     text-align: center;
     font: 8px var(--sans);
     letter-spacing: 3px;
-    font-family: "Bodoni Moda", serif;
+    font-family: "Cormorant Garamond", serif;
 }
 
 .main-nav {
@@ -3013,12 +3013,15 @@ section[id] {
     }
 }
 /* LUXURY SERIF FONT */
+/* LUXURY SERIF FONT — CORMORANT GARAMOND */
+
 .brand-name,
 .hero-copy h1,
 .hero-overlay h1,
 .section-heading h2,
 .customisation-heading h2 {
-    font-family: "Bodoni Moda", serif;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
 }
 /* =========================================
    DIAMOND SIGNATURE — LUXURY EDITORIAL
