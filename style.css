@@ -3111,4 +3111,19 @@ section[id] {
     }
 
 }
+/* REMOVE ITALIC FROM HEADINGS */
+
+h1,
+h2,
+h3,
+.section-heading,
+.section-heading h2,
+.hero-copy h1,
+.hero-overlay h1 {
+    font-style: normal !important;
+}
+i,
+em {
+    font-style: normal;
+}
 /* ================= END OF CSS ================= */
