@@ -535,14 +535,24 @@ function openCategory(category) {
 
             const video = document.createElement("video");
 
-            video.controls = true;
+           
+video.controls = false;
+video.muted = true;
+video.playsInline = true;
+video.loop = true;
 
-            video.muted = true;
+video.preload = "metadata";
 
-            video.playsInline = true;
-            video.loop = true;
+// Reveal video only when playback actually starts.
+video.addEventListener("playing", () => {
+    video.classList.add("video-ready");
+});
 
-            video.preload = "metadata";
+// Show native controls after the visitor taps the video.
+video.addEventListener("click", () => {
+    video.controls = true;
+});
+
 
 
             // Maintain original video dimensions.
