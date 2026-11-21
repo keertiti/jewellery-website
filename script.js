@@ -540,6 +540,7 @@ function openCategory(category) {
             video.muted = true;
 
             video.playsInline = true;
+            video.loop = true;
 
             video.preload = "metadata";
 
