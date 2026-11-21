@@ -1100,7 +1100,7 @@ section[id] {
 .gallery-item a {
     position: absolute;
     right: 10px;
-    bottom: 10px;
+    bottom: 10px;                                                                                                       
     padding: 9px 12px;
     background: rgba(33,29,23,0.88);
     color: #fff;
@@ -3131,19 +3131,9 @@ em {
     font-style: normal;
 }
 
-/* HIDE VIDEO UNTIL THE FIRST FRAME STARTS */
 
-.category-gallery-item {
-    background: transparent;
-}
-
-.category-gallery-item video {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.category-gallery-item video.video-ready {
-    opacity: 1;
+.category-gallery-item video:hover {
+    background:(transparent rgba(110, 109, 109, 0.15));
 }
 
 /* ================= END OF CSS ================= */

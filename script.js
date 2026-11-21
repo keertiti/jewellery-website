@@ -38,7 +38,14 @@ if (menuButton && nav) {
 
     });
 
+// Always start from homepage when browser is refreshed
+if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+}
 
+window.addEventListener("load", () => {
+    window.scrollTo(0, 0);
+});
     // Close menu when visitor clicks outside navigation.
 
     document.addEventListener("click", event => {
@@ -536,7 +543,10 @@ function openCategory(category) {
             const video = document.createElement("video");
 
            
-video.controls = false;
+video.controls = true;
+video.setAttribute("controlsList", "nodownload");
+video.setAttribute("disablePictureInPicture", "");
+video.disableRemotePlayback = true;
 video.muted = true;
 video.playsInline = true;
 video.loop = true;
