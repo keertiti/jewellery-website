@@ -1042,3 +1042,18 @@ window.addEventListener("load", function () {
     }
 
 });
+document.querySelectorAll(".gallery-item, .category-gallery-item").forEach(item => {
+    item.addEventListener("click", function (event) {
+        if (event.target.closest("a")) return;
+
+        document.querySelectorAll(
+            ".gallery-item.show-actions, .category-gallery-item.show-actions"
+        ).forEach(openItem => {
+            if (openItem !== item) {
+                openItem.classList.remove("show-actions");
+            }
+        });
+
+        this.classList.toggle("show-actions");
+    });
+});
